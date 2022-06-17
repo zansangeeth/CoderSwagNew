@@ -1,8 +1,11 @@
 package com.zasa.coderswag.Controller
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zasa.coderswag.Adapers.ProductAdapter
 import com.zasa.coderswag.R
@@ -30,6 +33,9 @@ class productsActivity : AppCompatActivity() {
         val layoutManager = GridLayoutManager(this, spanCount)
         productsListView.layoutManager = layoutManager
         productsListView.adapter = adapter
+        
 
     }
+
+
 }
