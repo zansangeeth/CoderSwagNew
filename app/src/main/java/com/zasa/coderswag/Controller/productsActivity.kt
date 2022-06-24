@@ -12,6 +12,7 @@ import com.zasa.coderswag.R
 import com.zasa.coderswag.Services.DataService
 import com.zasa.coderswag.Utils.EXTRA_CATEGORY
 import kotlinx.android.synthetic.main.activity_products.*
+import kotlinx.android.synthetic.main.product_list_item.*
 
 class productsActivity : AppCompatActivity() {
 
@@ -33,8 +34,17 @@ class productsActivity : AppCompatActivity() {
         val layoutManager = GridLayoutManager(this, spanCount)
         productsListView.layoutManager = layoutManager
         productsListView.adapter = adapter
-        
 
+//        productImage.setOnClickListener {
+//            Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
+//        }
+
+
+    }
+
+    fun productItemClicked(view: View) {
+        val productItemIntent = Intent(this, Description::class.java)
+        startActivity(productItemIntent)
     }
 
 
