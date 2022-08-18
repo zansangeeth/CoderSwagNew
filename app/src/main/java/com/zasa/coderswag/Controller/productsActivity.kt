@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zasa.coderswag.Adapers.ProductAdapter
@@ -12,7 +11,7 @@ import com.zasa.coderswag.R
 import com.zasa.coderswag.Services.DataService
 import com.zasa.coderswag.Utils.EXTRA_CATEGORY
 import kotlinx.android.synthetic.main.activity_products.*
-import kotlinx.android.synthetic.main.product_list_item.*
+
 
 class productsActivity : AppCompatActivity() {
 
@@ -27,7 +26,7 @@ class productsActivity : AppCompatActivity() {
 
         var spanCount = 2
         val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             spanCount = 3
         }
 
@@ -35,17 +34,16 @@ class productsActivity : AppCompatActivity() {
         productsListView.layoutManager = layoutManager
         productsListView.adapter = adapter
 
-//        productImage.setOnClickListener {
-//            Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
-//        }
+        adapter.setOnItemClickListener(object : ProductAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                Toast.makeText(this@productsActivity, "user clicked position $position", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@productsActivity, Description::class.java)
+                intent.putExtra("title", categoryType)
+                startActivity(intent)
+            }
 
+        })
 
     }
-
-    fun productItemClicked(view: View) {
-        val productItemIntent = Intent(this, Description::class.java)
-        startActivity(productItemIntent)
-    }
-
 
 }

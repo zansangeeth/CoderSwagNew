@@ -17,8 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hat1"
-        android:onClick="productItemClicked"/>
+        app:srcCompat="@drawable/hat1"/>
 
     <TextView
         android:id="@+id/productName"
