@@ -7,9 +7,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zasa.coderswag.Adapers.ProductAdapter
+import com.zasa.coderswag.Model.Product
 import com.zasa.coderswag.R
 import com.zasa.coderswag.Services.DataService
 import com.zasa.coderswag.Utils.EXTRA_CATEGORY
+import com.zasa.coderswag.Utils.EXTRA_PRODUCT
 import kotlinx.android.synthetic.main.activity_products.*
 
 
@@ -22,7 +24,13 @@ class productsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_products)
 
         val categoryType = intent.getStringExtra(EXTRA_CATEGORY)
-        adapter = ProductAdapter(this, DataService.getProducts(categoryType))
+
+        adapter = ProductAdapter(this, DataService.getProducts(categoryType)) {product ->
+            val intent = Intent(this, Description::class.java)
+            intent.putExtra(EXTRA_PRODUCT, product)
+            startActivity(intent)
+        }
+        productsListView.adapter = adapter
 
         var spanCount = 2
         val orientation = resources.configuration.orientation
@@ -34,15 +42,6 @@ class productsActivity : AppCompatActivity() {
         productsListView.layoutManager = layoutManager
         productsListView.adapter = adapter
 
-        adapter.setOnItemClickListener(object : ProductAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-                Toast.makeText(this@productsActivity, "user clicked position $position", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@productsActivity, Description::class.java)
-                intent.putExtra("title", categoryType)
-                startActivity(intent)
-            }
-
-        })
 
     }
 

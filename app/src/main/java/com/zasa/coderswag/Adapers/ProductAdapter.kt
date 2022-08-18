@@ -10,36 +10,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zasa.coderswag.Model.Product
 import com.zasa.coderswag.R
 
-class ProductAdapter(val context: Context, val products: List<Product>) :
+class ProductAdapter(val context: Context, val products: List<Product>, private val itemClick: (Product) -> Unit) :
     RecyclerView.Adapter<ProductAdapter.ProductsHolder>() {
-
-    lateinit var mListener: onItemClickListener
-
-    interface onItemClickListener {
-        fun onItemClick(position: Int)
-    }
-
-    fun setOnItemClickListener(listener: onItemClickListener) {
-        mListener = listener
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.product_list_item, parent, false)
-        return ProductsHolder(view, mListener)
+        return ProductsHolder(view, itemClick)
 
     }
 
     override fun onBindViewHolder(holder: ProductsHolder, position: Int) {
         holder.bindProduct(products[position], context)
-
-
     }
 
     override fun getItemCount(): Int {
         return products.count()
     }
 
-    inner class ProductsHolder(itemView: View, listener: onItemClickListener) :
+    inner class ProductsHolder(itemView: View, private val itemClick: (Product) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
 
         val productImage = itemView.findViewById<ImageView>(R.id.productImage)
@@ -52,14 +40,8 @@ class ProductAdapter(val context: Context, val products: List<Product>) :
             productImage.setImageResource(resourceId)
             productName.text = product.title
             productPrice.text = product.price
+            itemView.setOnClickListener { itemClick(product) }
         }
-
-        init {
-            itemView.setOnClickListener {
-                listener.onItemClick(adapterPosition)
-            }
-        }
-
 
     }
 
