@@ -22,11 +22,14 @@ class Description : AppCompatActivity() {
         tvProductDesc.text = product?.desc
 
         ivShare.setOnClickListener {
-            val shareIntent = Intent()
-            shareIntent.action= Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, "this is ${product?.title}")
-            intent.type = "text/plain"
-            startActivity(Intent.createChooser(shareIntent, "Share to :"))
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "${product?.title}")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }
