@@ -1,5 +1,6 @@
 package com.zasa.coderswag.Controller
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.zasa.coderswag.Model.Product
@@ -19,5 +20,13 @@ class Description : AppCompatActivity() {
         tvTitle.text = product?.title
         tvProductPrice.text = product?.price
         tvProductDesc.text = product?.desc
+
+        ivShare.setOnClickListener {
+            val shareIntent = Intent()
+            shareIntent.action= Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, "this is ${product?.title}")
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(shareIntent, "Share to :"))
+        }
     }
 }
